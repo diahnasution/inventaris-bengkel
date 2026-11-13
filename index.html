@@ -1,17 +1,1124 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <title>pinjamEach</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=Figtree:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #edf6ee;
+        --mint: #cfe9d6;
+        --mint2: #a9d8b8;
+        --pink: #f9dbe3;
+        --pink2: #f2b5c7;
+        --ink: #26442f;
+        --ink2: #5b7664;
+        --card: #fffafb;
+        --line: rgba(38, 68, 47, 0.18);
+        --hot: #d9638a;
+        box-sizing: border-box;
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+      }
+      @media (prefers-color-scheme: dark) {
+        :root:not([data-theme="light"]) {
+          --bg: #15221a;
+          --mint: #26402f;
+          --mint2: #3b6247;
+          --pink: #43293378;
+          --pink2: #7a4357;
+          --ink: #e5f2e8;
+          --ink2: #9db8a6;
+          --card: #1e2f25;
+          --line: rgba(229, 242, 232, 0.2);
+          --hot: #f08cae;
+        }
+      }
+      :root[data-theme="dark"] {
+        --bg: #15221a;
+        --mint: #26402f;
+        --mint2: #3b6247;
+        --pink: #43293378;
+        --pink2: #7a4357;
+        --ink: #e5f2e8;
+        --ink2: #9db8a6;
+        --card: #1e2f25;
+        --line: rgba(229, 242, 232, 0.2);
+        --hot: #f08cae;
+      }
+      html {
+        scroll-padding-top: env(safe-area-inset-top, 0px);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font:
+          500 16px/1.5 Figtree,
+          system-ui,
+          sans-serif;
+      }
+      h1,
+      h2,
+      h3 {
+        font-family: "Bricolage Grotesque", Figtree, sans-serif;
+        margin: 0;
+        line-height: 1.1;
+      }
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+      .wrap {
+        max-width: 1080px;
+        margin: 0 auto;
+        padding: 20px 18px 40px;
+      }
+      header {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 26px;
+      }
+      .logo {
+        font:
+          800 28px "Bricolage Grotesque",
+          sans-serif;
+        letter-spacing: -0.5px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .logo i {
+        width: 22px;
+        height: 22px;
+        background: var(--pink2);
+        border-radius: 60% 40% 55% 45%;
+        display: inline-block;
+        animation: morph 6s ease-in-out infinite;
+      }
+      @keyframes morph {
+        50% {
+          border-radius: 40% 60% 45% 55%;
+          transform: rotate(25deg);
+        }
+      }
+      nav {
+        display: flex;
+        gap: 6px;
+        flex-wrap: wrap;
+      }
+      nav button {
+        border: 0;
+        background: transparent;
+        padding: 8px 14px;
+        border-radius: 14px 14px 4px 14px;
+        cursor: pointer;
+        position: relative;
+      }
+      nav button.on {
+        background: var(--mint2);
+        font-weight: 600;
+      }
+      nav button:hover:not(.on) {
+        background: var(--mint);
+      }
+      .badge {
+        position: absolute;
+        top: -4px;
+        right: -4px;
+        background: var(--hot);
+        color: #fff;
+        border-radius: 99px;
+        font-size: 12px;
+        min-width: 20px;
+        padding: 0 5px;
+        text-align: center;
+      }
+      .me {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        font-size: 14px;
+        color: var(--ink2);
+      }
+      .btn {
+        border: 0;
+        background: var(--pink2);
+        color: var(--ink);
+        padding: 9px 18px;
+        border-radius: 16px 16px 16px 5px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: transform 0.15s;
+      }
+      .btn:hover {
+        transform: translateY(-2px) rotate(-1deg);
+      }
+      .btn:active {
+        transform: scale(0.96);
+      }
+      .btn.g {
+        background: var(--mint2);
+      }
+      .btn.ghost {
+        background: transparent;
+        border: 1.5px solid var(--line);
+      }
+      .btn.sm {
+        padding: 5px 12px;
+        font-size: 14px;
+      }
+      :focus-visible {
+        outline: 3px solid var(--hot);
+        outline-offset: 2px;
+      }
+      h2 {
+        font-size: 30px;
+        margin-bottom: 6px;
+      }
+      .sub {
+        color: var(--ink2);
+        margin: 0 0 20px;
+        max-width: 60ch;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+        gap: 26px 20px;
+        padding-top: 18px;
+      }
+      .tag {
+        position: relative;
+        padding: 34px 18px 16px;
+        border-radius: 10px 26px 10px 26px;
+        transform-origin: 50% 8px;
+        transition: transform 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+      }
+      .tag:hover {
+        transform: rotate(-2.5deg);
+      }
+      .tag::before {
+        content: "";
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        margin-left: -8px;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background: var(--bg);
+        box-shadow: inset 0 0 0 2px var(--line);
+      }
+      .tag.c0 {
+        background: var(--mint);
+      }
+      .tag.c1 {
+        background: var(--pink);
+      }
+      .tag.c2 {
+        background: var(--mint2);
+      }
+      .tag.c3 {
+        background: var(--card);
+        box-shadow: inset 0 0 0 2px var(--pink2);
+      }
+      .tag.drop {
+        animation: drop 0.7s cubic-bezier(0.3, 1.5, 0.5, 1) both;
+        animation-delay: calc(var(--i) * 60ms);
+      }
+      @keyframes drop {
+        from {
+          opacity: 0;
+          transform: translateY(-30px) rotate(7deg);
+        }
+      }
+      .tag h3 {
+        font-size: 20px;
+        margin-bottom: 4px;
+      }
+      .tag small {
+        color: var(--ink2);
+        display: block;
+      }
+      .stock {
+        margin: 12px 0;
+        height: 8px;
+        border-radius: 9px;
+        background: rgba(255, 255, 255, 0.55);
+        overflow: hidden;
+      }
+      .stock b {
+        display: block;
+        height: 100%;
+        background: var(--ink);
+        border-radius: 9px;
+        transition: width 0.6s;
+      }
+      .card {
+        background: var(--card);
+        border-radius: 22px 8px 22px 8px;
+        padding: 16px 18px;
+        margin-bottom: 14px;
+        box-shadow: inset 0 0 0 1.5px var(--line);
+      }
+      .row {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+      }
+      .chip {
+        font-size: 13px;
+        font-weight: 600;
+        padding: 2px 12px;
+        border-radius: 99px;
+        background: var(--mint);
+      }
+      .chip.menunggu {
+        background: var(--pink);
+      }
+      .chip.disetujui {
+        background: var(--mint2);
+      }
+      .chip.dipinjam {
+        background: var(--mint2);
+      }
+      .chip.telat {
+        background: var(--hot);
+        color: #fff;
+      }
+      .chip.ditolak {
+        background: transparent;
+        box-shadow: inset 0 0 0 1.5px var(--pink2);
+      }
+      .track {
+        display: flex;
+        gap: 0;
+        align-items: center;
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--ink2);
+      }
+      .track span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex: 1;
+        position: relative;
+      }
+      .track span::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--line);
+        z-index: 1;
+        margin-bottom: 3px;
+      }
+      .track span::after {
+        content: "";
+        position: absolute;
+        top: 5px;
+        left: -50%;
+        width: 100%;
+        height: 2px;
+        background: var(--line);
+      }
+      .track span:first-child::after {
+        display: none;
+      }
+      .track .d::before,
+      .track .d::after {
+        background: var(--hot);
+      }
+      .cols {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 18px;
+        align-items: start;
+      }
+      .cols h3 {
+        margin-bottom: 12px;
+        font-size: 19px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        background: var(--card);
+        border: 1.5px solid var(--line);
+        border-radius: 12px;
+        padding: 9px 12px;
+        margin: 4px 0 12px;
+      }
+      label {
+        font-size: 14px;
+        color: var(--ink2);
+      }
+      .search {
+        max-width: 340px;
+      }
+      dialog {
+        border: 0;
+        border-radius: 26px 10px 26px 10px;
+        background: var(--bg);
+        color: var(--ink);
+        padding: 24px;
+        width: min(420px, 92vw);
+      }
+      dialog::backdrop {
+        background: rgba(38, 68, 47, 0.35);
+      }
+      dialog[open] {
+        animation: pop 0.3s cubic-bezier(0.3, 1.5, 0.5, 1);
+      }
+      @keyframes pop {
+        from {
+          transform: scale(0.9) rotate(-2deg);
+          opacity: 0;
+        }
+      }
+      dialog h3 {
+        margin-bottom: 14px;
+        font-size: 22px;
+      }
+      dialog .row {
+        justify-content: flex-end;
+        margin-top: 6px;
+      }
+      .roles {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 6px 0 16px;
+      }
+      .roles label {
+        cursor: pointer;
+        color: var(--ink);
+      }
+      .roles input {
+        display: none;
+      }
+      .roles span {
+        display: block;
+        text-align: center;
+        padding: 12px 6px;
+        border-radius: 14px;
+        background: var(--mint);
+      }
+      .roles input:checked + span {
+        background: var(--pink2);
+        font-weight: 700;
+        transform: rotate(-2deg);
+      }
+      .login {
+        max-width: 440px;
+        margin: 6vh auto 0;
+        background: var(--card);
+        padding: 30px;
+        border-radius: 40px 12px 40px 12px;
+        box-shadow: inset 0 0 0 1.5px var(--line);
+      }
+      .bars div {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 7px 0;
+        font-size: 14px;
+      }
+      .bars b {
+        height: 14px;
+        border-radius: 7px;
+        background: var(--pink2);
+        transition: width 0.6s;
+      }
+      .bars i {
+        width: 130px;
+        font-style: normal;
+      }
+      .note {
+        border-left: 5px solid var(--mint2);
+        padding-left: 12px;
+        margin-bottom: 12px;
+      }
+      .note.new {
+        border-color: var(--hot);
+      }
+      .toast {
+        position: fixed;
+        left: 50%;
+        bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+        transform: translate(-50%, 90px);
+        background: var(--ink);
+        color: var(--bg);
+        padding: 10px 20px;
+        border-radius: 99px;
+        transition: transform 0.4s cubic-bezier(0.3, 1.5, 0.5, 1);
+        z-index: 9;
+      }
+      .toast.on {
+        transform: translate(-50%, 0);
+      }
+      .live {
+        margin-top: 36px;
+        font-size: 13px;
+        color: var(--ink2);
+        display: flex;
+        gap: 8px;
+        align-items: center;
+      }
+      .live i {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: var(--hot);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        50% {
+          opacity: 0.25;
+          transform: scale(1.5);
+        }
+      }
+      .empty {
+        padding: 26px;
+        border-radius: 20px;
+        border: 2px dashed var(--pink2);
+        color: var(--ink2);
+      }
+      textarea.csv {
+        height: 200px;
+        font: 12px monospace;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
   </head>
   <body>
-    <h1>Inventaris Bengkel TI</h1>
-    <p>SMK AKP Galang</p>
-
-    <ul>
-      <li>Multimeter: 12 unit</li>
-      <li>Tang crimping: 8 unit</li>
-    </ul>
+    <div class="wrap"><div id="app"></div></div>
+    <dialog id="dlg"></dialog>
+    <div class="toast" id="toast"></div>
+    <script>
+      const KEY = "pinjamEach.v1",
+        SK = "pinjamEach.sesi",
+        DAY = 864e5,
+        $ = (s, e = document) => e.querySelector(s);
+      const esc = (s) =>
+        String(s ?? "").replace(
+          /[&<>"]/g,
+          (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c],
+        );
+      const fmt = (d) =>
+        new Date(d).toLocaleDateString("id-ID", {
+          day: "numeric",
+          month: "short",
+        });
+      let mem = null;
+      const rd = (k, st) => {
+        try {
+          const r = (st || localStorage).getItem(k);
+          return r ? JSON.parse(r) : null;
+        } catch (e) {
+          return null;
+        }
+      };
+      function seed() {
+        const n = Date.now();
+        return {
+          tools: [
+            {
+              id: "t1",
+              name: "Bor listrik",
+              cat: "Listrik",
+              total: 4,
+              broken: 0,
+              cond: "Baik",
+            },
+            {
+              id: "t2",
+              name: "Gerinda tangan",
+              cat: "Listrik",
+              total: 3,
+              broken: 0,
+              cond: "Baik",
+            },
+            {
+              id: "t3",
+              name: "Multimeter digital",
+              cat: "Ukur",
+              total: 6,
+              broken: 0,
+              cond: "Baik",
+            },
+            {
+              id: "t4",
+              name: "Solder station",
+              cat: "Elektronika",
+              total: 5,
+              broken: 0,
+              cond: "Baik",
+            },
+            {
+              id: "t5",
+              name: "Kunci pas set",
+              cat: "Tangan",
+              total: 4,
+              broken: 0,
+              cond: "Lecet halus",
+            },
+            {
+              id: "t6",
+              name: "Jangka sorong",
+              cat: "Ukur",
+              total: 8,
+              broken: 0,
+              cond: "Baik",
+            },
+            {
+              id: "t7",
+              name: "Gergaji besi",
+              cat: "Tangan",
+              total: 3,
+              broken: 0,
+              cond: "Baik",
+            },
+            {
+              id: "t8",
+              name: "Obeng presisi",
+              cat: "Elektronika",
+              total: 10,
+              broken: 0,
+              cond: "Baik",
+            },
+          ],
+          loans: [
+            {
+              id: "l1",
+              by: "Dina Rahma",
+              tool: "t3",
+              qty: 1,
+              status: "dipinjam",
+              due: n - 2 * DAY,
+              at: n - 5 * DAY,
+              why: "Praktik rangkaian",
+            },
+            {
+              id: "l2",
+              by: "Raka Putra",
+              tool: "t1",
+              qty: 1,
+              status: "menunggu",
+              due: n + 3 * DAY,
+              at: n - 3600e3,
+              why: "Proyek rak buku",
+            },
+            {
+              id: "l3",
+              by: "Salsa Amelia",
+              tool: "t4",
+              qty: 2,
+              status: "disetujui",
+              due: n + 2 * DAY,
+              at: n - DAY,
+              why: "Perakitan amplifier",
+            },
+            {
+              id: "l4",
+              by: "Dina Rahma",
+              tool: "t6",
+              qty: 1,
+              status: "dikembalikan",
+              due: n - 9 * DAY,
+              at: n - 12 * DAY,
+              why: "Ukur poros",
+              kond: "Baik",
+            },
+          ],
+          notes: [],
+        };
+      }
+      let D = rd(KEY) || seed(),
+        SES = rd(SK, sessionStorage),
+        tab = null,
+        anim = true,
+        last = "";
+      const save = () => {
+        try {
+          localStorage.setItem(KEY, JSON.stringify(D));
+        } catch (e) {}
+      };
+      const tool = (id) =>
+        D.tools.find((t) => t.id == id) || { name: "(alat dihapus)" };
+      const used = (t) =>
+        D.loans
+          .filter(
+            (l) =>
+              l.tool == t.id &&
+              ["disetujui", "dipinjam", "telat"].includes(l.status),
+          )
+          .reduce((a, l) => a + l.qty, 0);
+      const avail = (t) => t.total - t.broken - used(t);
+      const note = (to, text) =>
+        D.notes.unshift({
+          id: Date.now() + Math.random(),
+          to,
+          text,
+          t: Date.now(),
+          read: false,
+        });
+      const mine = () =>
+        D.loans.filter((l) => l.by.toLowerCase() == SES.name.toLowerCase());
+      const myNotes = () =>
+        D.notes.filter((n) => n.to.toLowerCase() == SES.name.toLowerCase());
+      function system() {
+        let ch = false,
+          n = Date.now();
+        D.loans.forEach((l) => {
+          const t = tool(l.tool).name;
+          if (l.status == "dipinjam" && l.due < n) {
+            l.status = "telat";
+            note(
+              l.by,
+              `Peminjaman ${t} melewati jatuh tempo ${fmt(l.due)}. Segera kembalikan ke PLP.`,
+            );
+            ch = true;
+          }
+          if (l.status == "dipinjam" && l.due - n < DAY && l.due > n && !l.r1) {
+            l.r1 = 1;
+            note(l.by, `Pengingat: ${t} jatuh tempo besok (${fmt(l.due)}).`);
+            ch = true;
+          }
+        });
+        if (ch) save();
+        return ch;
+      }
+      const TABS = {
+        peminjam: [
+          ["katalog", "Katalog alat"],
+          ["riwayat", "Riwayat"],
+          ["pengingat", "Pengingat"],
+        ],
+        plp: [
+          ["antrean", "Antrean"],
+          ["alat", "Data alat"],
+        ],
+        kepala: [
+          ["dash", "Dashboard"],
+          ["telat", "Pantau telat"],
+        ],
+      };
+      const NAMES = {
+          peminjam: "Dina Rahma",
+          plp: "Pak Hendra",
+          kepala: "Bu Ratna",
+        },
+        RL = { peminjam: "Peminjam", plp: "PLP", kepala: "Kepala Bengkel" };
+      function toast(m) {
+        const t = $("#toast");
+        t.textContent = m;
+        t.classList.add("on");
+        clearTimeout(t.h);
+        t.h = setTimeout(() => t.classList.remove("on"), 2200);
+      }
+      const chip = (l) =>
+        `<span class="chip ${l.status}">${l.status == "telat" ? `telat ${Math.ceil((Date.now() - l.due) / DAY)} hari` : l.status}</span>`;
+      function track(l) {
+        if (l.status == "ditolak")
+          return `<p style="color:var(--ink2);margin:8px 0 0">Alasan: ${esc(l.reason || "-")}</p>`;
+        const i = {
+          menunggu: 0,
+          disetujui: 1,
+          dipinjam: 2,
+          telat: 2,
+          dikembalikan: 3,
+        }[l.status];
+        return `<div class="track">${["Diajukan", "Disetujui", "Diambil", "Kembali"].map((s, k) => `<span class="${k <= i ? "d" : ""}">${s}</span>`).join("")}</div>`;
+      }
+      function render() {
+        const app = $("#app");
+        if (!SES) {
+          app.innerHTML = `<form class="login" data-k="login"><div class="logo" style="margin-bottom:6px"><i></i>pinjamEach</div>
+<p class="sub">Pinjam alat bengkel tanpa antre buku catatan.</p><label>Nama kamu</label><input name="name" value="${NAMES.peminjam}" required>
+<label>Masuk sebagai</label><div class="roles">${Object.keys(RL)
+            .map(
+              (r, i) =>
+                `<label><input type="radio" name="role" value="${r}" ${i ? "" : "checked"}><span>${RL[r]}</span></label>`,
+            )
+            .join("")}</div>
+<button class="btn" style="width:100%">Masuk</button></form>`;
+          app.querySelectorAll("[name=role]").forEach(
+            (r) =>
+              (r.onchange = () => {
+                app.querySelector("[name=name]").value = NAMES[r.value];
+              }),
+          );
+          return;
+        }
+        const tabs = TABS[SES.role];
+        if (!tabs.find((t) => t[0] == tab)) tab = tabs[0][0];
+        const unread =
+          SES.role == "peminjam" ? myNotes().filter((n) => !n.read).length : 0;
+        app.innerHTML = `<header><div class="logo"><i></i>pinjamEach</div><nav>${tabs.map((t) => `<button data-a="tab" data-id="${t[0]}" class="${t[0] == tab ? "on" : ""}">${t[1]}${t[0] == "pengingat" && unread ? `<span class="badge">${unread}</span>` : ""}</button>`).join("")}</nav>
+<div class="me">${esc(SES.name)} (${RL[SES.role]})<button class="btn ghost sm" data-a="out">Keluar</button></div></header><main id="view"></main>
+<div class="live"><i></i><span>Status diperbarui otomatis oleh sistem, terakhir <b id="ts">${new Date().toLocaleTimeString("id-ID")}</b></span></div>`;
+        view();
+        anim = false;
+      }
+      function view() {
+        const v = $("#view"),
+          f = VIEWS[tab];
+        v.innerHTML = f();
+        if (tab == "katalog") grid();
+      }
+      function grid() {
+        const q = ($("#q")?.value || "").toLowerCase();
+        $("#grid").innerHTML =
+          D.tools
+            .filter((t) => (t.name + t.cat).toLowerCase().includes(q))
+            .map((t, i) => {
+              const a = avail(t),
+                p = Math.max(0, (a / t.total) * 100);
+              return `<div class="tag c${i % 4} ${anim ? "drop" : ""}" style="--i:${i}"><h3>${esc(t.name)}</h3><small>${esc(t.cat)}, kondisi ${esc(t.cond)}</small><div class="stock"><b style="width:${p}%"></b></div>
+<div class="row"><small>Tersedia ${a} dari ${t.total}</small><button class="btn sm" data-a="pinjam" data-id="${t.id}" ${a < 1 ? "disabled style='opacity:.4'" : ""}>Pinjam</button></div></div>`;
+            })
+            .join("") ||
+          `<div class="empty">Tidak ada alat yang cocok dengan pencarianmu.</div>`;
+      }
+      const loanCard = (l, btns = "") =>
+        `<div class="card"><div class="row"><div><b>${esc(tool(l.tool).name)}</b> x${l.qty}<br><small style="color:var(--ink2)">${esc(l.by)}, ${esc(l.why)}, kembali ${fmt(l.due)}</small></div>${chip(l)}</div>${btns ? `<div class="row" style="justify-content:flex-start;margin-top:10px">${btns}</div>` : ""}</div>`;
+      const VIEWS = {
+        katalog: () =>
+          `<h2>Katalog alat</h2><p class="sub">Pilih alat yang kamu butuhkan, lalu ajukan peminjaman. PLP akan menyetujuinya.</p><input id="q" class="search" placeholder="Cari bor, multimeter, ukur..."><div class="grid" id="grid"></div>`,
+        riwayat: () =>
+          `<h2>Riwayat peminjaman</h2><p class="sub">Pantau posisi setiap pengajuanmu.</p>${
+            mine()
+              .sort((a, b) => b.at - a.at)
+              .map((l) => loanCard(l).replace(/<\/div>$/, track(l) + "</div>"))
+              .join("") ||
+            `<div class="empty">Belum ada peminjaman. Buka Katalog alat dan ajukan yang pertama.</div>`
+          }`,
+        pengingat: () => {
+          const n = myNotes();
+          setTimeout(() => {
+            if (n.some((x) => !x.read) && tab == "pengingat") {
+              n.forEach((x) => (x.read = true));
+              save();
+              $("nav .badge")?.remove();
+            }
+          }, 1500);
+          return `<h2>Pengingat</h2><p class="sub">Pesan otomatis dari sistem tentang jatuh tempo dan persetujuan.</p>${n.map((x) => `<div class="note ${x.read ? "" : "new"}">${esc(x.text)}<br><small style="color:var(--ink2)">${new Date(x.t).toLocaleString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</small></div>`).join("") || `<div class="empty">Belum ada pengingat. Kami kabari kalau ada yang perlu kamu ketahui.</div>`}`;
+        },
+        antrean: () => {
+          const g = (s) => D.loans.filter((l) => s.includes(l.status));
+          return `<h2>Antrean peminjaman</h2><p class="sub">Setujui pengajuan, catat saat alat diambil, dan periksa kondisinya saat kembali.</p><div class="cols">
+<div><h3>Menunggu persetujuan</h3>${
+            g(["menunggu"])
+              .map((l) =>
+                loanCard(
+                  l,
+                  `<button class="btn g sm" data-a="ok" data-id="${l.id}">Setujui</button><button class="btn ghost sm" data-a="no" data-id="${l.id}">Tolak</button>`,
+                ),
+              )
+              .join("") || `<div class="empty">Tidak ada pengajuan baru.</div>`
+          }</div>
+<div><h3>Siap diambil</h3>${
+            g(["disetujui"])
+              .map((l) =>
+                loanCard(
+                  l,
+                  `<button class="btn g sm" data-a="pick" data-id="${l.id}">Konfirmasi diambil</button>`,
+                ),
+              )
+              .join("") ||
+            `<div class="empty">Belum ada yang menunggu diambil.</div>`
+          }</div>
+<div><h3>Sedang dipinjam</h3>${
+            g(["dipinjam", "telat"])
+              .map((l) =>
+                loanCard(
+                  l,
+                  `<button class="btn sm" data-a="ret" data-id="${l.id}">Konfirmasi kembali</button>`,
+                ),
+              )
+              .join("") || `<div class="empty">Semua alat ada di bengkel.</div>`
+          }</div></div>`;
+        },
+        alat: () =>
+          `<div class="row"><div><h2>Data alat</h2><p class="sub">Tambah, ubah, atau hapus alat bengkel.</p></div><button class="btn" data-a="addt">Tambah alat</button></div>${D.tools.map((t) => `<div class="card row"><div><b>${esc(t.name)}</b> <span class="chip">${esc(t.cat)}</span><br><small style="color:var(--ink2)">Total ${t.total}, rusak ${t.broken}, tersedia ${avail(t)}, kondisi terakhir: ${esc(t.cond)}</small></div><div><button class="btn g sm" data-a="edt" data-id="${t.id}">Ubah</button> <button class="btn ghost sm" data-a="delt" data-id="${t.id}">Hapus</button></div></div>`).join("")}`,
+        dash: () => {
+          const out = D.loans.filter((l) =>
+              ["dipinjam", "telat"].includes(l.status),
+            ),
+            late = D.loans.filter((l) => l.status == "telat"),
+            wait = D.loans.filter((l) => l.status == "menunggu");
+          const cnt = {};
+          D.loans.forEach((l) => (cnt[l.tool] = (cnt[l.tool] || 0) + l.qty));
+          const top = Object.entries(cnt)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 5),
+            mx = top[0]?.[1] || 1;
+          return `<div class="row"><div><h2>Dashboard</h2><p class="sub">Hari ini ${out.length} peminjaman sedang berjalan, ${late.length} di antaranya terlambat, dan ${wait.length} pengajuan menunggu persetujuan.</p></div><button class="btn" data-a="rep">Unduh laporan</button></div>
+<div class="cols"><div class="card"><h3>Alat paling sering dipinjam</h3><div class="bars">${top.map(([id, c]) => `<div><i>${esc(tool(id).name)}</i><b style="width:${(c / mx) * 100}%;min-width:8px"></b>${c}</div>`).join("") || "Belum ada data."}</div></div>
+<div class="card"><h3>Stok bengkel</h3>${D.tools.map((t) => `<div class="row" style="font-size:14px"><span>${esc(t.name)}</span><span>${avail(t)} / ${t.total}</span></div>`).join("")}</div></div>`;
+        },
+        telat: () => {
+          const l = D.loans.filter((l) => l.status == "telat");
+          return `<h2>Pantau telat</h2><p class="sub">Daftar peminjaman yang melewati jatuh tempo, ditandai otomatis oleh sistem.</p>${l.map((x) => loanCard(x)).join("") || `<div class="empty">Tidak ada keterlambatan. Semua peminjam tepat waktu.</div>`}`;
+        },
+      };
+      const dlg = $("#dlg");
+      function open(title, body, k, id, ok = "Simpan") {
+        dlg.innerHTML = `<form data-k="${k}" data-id="${id || ""}"><h3>${title}</h3>${body}<div class="row"><button type="button" class="btn ghost" data-a="close">Batal</button><button class="btn">${ok}</button></div></form>`;
+        dlg.showModal();
+      }
+      const csvText = () =>
+        [
+          "Tanggal pinjam,Peminjam,Alat,Jumlah,Jatuh tempo,Status,Kondisi kembali",
+        ]
+          .concat(
+            D.loans.map((l) =>
+              [
+                fmt(l.at),
+                l.by,
+                tool(l.tool).name,
+                l.qty,
+                fmt(l.due),
+                l.status,
+                l.kond || "",
+              ]
+                .map((c) => `"${String(c).replace(/"/g, '""')}"`)
+                .join(","),
+            ),
+          )
+          .join("\n");
+      const toolForm = (t) =>
+        `<label>Nama alat</label><input name="name" required value="${esc(t?.name)}"><label>Kategori</label><input name="cat" required value="${esc(t?.cat)}"><label>Jumlah total</label><input name="total" type="number" min="1" required value="${t?.total || 1}">`;
+      document.addEventListener("click", (e) => {
+        const b = e.target.closest("[data-a]");
+        if (!b) return;
+        const a = b.dataset.a,
+          id = b.dataset.id,
+          l = D.loans.find((x) => x.id == id);
+        if (a == "tab") {
+          tab = id;
+          anim = true;
+          render();
+        } else if (a == "out") {
+          SES = null;
+          try {
+            sessionStorage.removeItem(SK);
+          } catch (e) {}
+          render();
+        } else if (a == "close") dlg.close();
+        else if (a == "pinjam") {
+          const t = tool(id),
+            d = new Date(Date.now() + 3 * DAY).toISOString().slice(0, 10);
+          open(
+            `Pinjam ${esc(t.name)}`,
+            `<label>Jumlah (maks ${avail(t)})</label><input name="qty" type="number" min="1" max="${avail(t)}" value="1" required><label>Tanggal kembali</label><input name="due" type="date" value="${d}" required><label>Keperluan</label><input name="why" required placeholder="Contoh: praktik las">`,
+            "pinjam",
+            id,
+            "Ajukan",
+          );
+        } else if (a == "ok") {
+          if (avail(tool(l.tool)) < l.qty)
+            return toast("Stok tidak cukup untuk disetujui");
+          l.status = "disetujui";
+          note(
+            l.by,
+            `Pengajuan ${tool(l.tool).name} disetujui. Ambil di bengkel ya.`,
+          );
+          save();
+          toast("Pengajuan disetujui");
+          render();
+        } else if (a == "no")
+          open(
+            "Tolak pengajuan",
+            `<label>Alasan penolakan</label><input name="reason" required>`,
+            "no",
+            id,
+            "Tolak",
+          );
+        else if (a == "pick") {
+          l.status = "dipinjam";
+          l.picked = Date.now();
+          save();
+          toast("Pengambilan dikonfirmasi");
+          render();
+        } else if (a == "ret")
+          open(
+            "Konfirmasi kembali",
+            `<p>${esc(tool(l.tool).name)} dari ${esc(l.by)}</p><label>Kondisi alat</label><select name="kond"><option>Baik</option><option>Lecet halus</option><option>Rusak ringan</option><option>Rusak berat</option></select><label>Catatan</label><input name="cat" placeholder="Opsional">`,
+            "ret",
+            id,
+            "Catat kembali",
+          );
+        else if (a == "addt") open("Tambah alat", toolForm(), "tool", "");
+        else if (a == "edt") open("Ubah alat", toolForm(tool(id)), "tool", id);
+        else if (a == "delt") {
+          if (confirm("Hapus alat ini dari katalog?")) {
+            D.tools = D.tools.filter((t) => t.id != id);
+            save();
+            render();
+          }
+        } else if (a == "rep")
+          open(
+            "Laporan peminjaman",
+            `<textarea class="csv" readonly id="csv">${esc(csvText())}</textarea>`,
+            "copy",
+            "",
+            "Salin CSV",
+          );
+      });
+      document.addEventListener("input", (e) => {
+        if (e.target.id == "q") grid();
+      });
+      document.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const f = e.target,
+          k = f.dataset.k,
+          id = f.dataset.id,
+          v = Object.fromEntries(new FormData(f));
+        if (k == "login") {
+          SES = { name: v.name.trim(), role: v.role };
+          try {
+            sessionStorage.setItem(SK, JSON.stringify(SES));
+          } catch (x) {}
+          tab = null;
+          anim = true;
+          return render();
+        }
+        if (k == "copy") {
+          const c = $("#csv");
+          c.select();
+          try {
+            navigator.clipboard.writeText(c.value);
+          } catch (x) {
+            document.execCommand("copy");
+          }
+          return toast("CSV disalin ke papan klip");
+        }
+        dlg.close();
+        const l = D.loans.find((x) => x.id == id);
+        if (k == "pinjam") {
+          const t = tool(id),
+            due = new Date(v.due + "T23:59:59").getTime();
+          if (+v.qty > avail(t) || due < Date.now())
+            return toast("Jumlah atau tanggal tidak valid");
+          D.loans.push({
+            id: "l" + Date.now(),
+            by: SES.name,
+            tool: id,
+            qty: +v.qty,
+            status: "menunggu",
+            due,
+            at: Date.now(),
+            why: v.why,
+          });
+          toast("Pengajuan terkirim ke PLP");
+        }
+        if (k == "no") {
+          l.status = "ditolak";
+          l.reason = v.reason;
+          note(l.by, `Pengajuan ${tool(l.tool).name} ditolak: ${v.reason}`);
+          toast("Pengajuan ditolak");
+        }
+        if (k == "ret") {
+          const t = tool(l.tool);
+          l.status = "dikembalikan";
+          l.kond = v.kond;
+          l.ret = Date.now();
+          t.cond = v.kond;
+          if (v.kond == "Rusak berat") t.broken += l.qty;
+          note(
+            l.by,
+            `${t.name} sudah dikembalikan dengan kondisi ${v.kond.toLowerCase()}. Terima kasih!`,
+          );
+          toast("Pengembalian dicatat");
+        }
+        if (k == "tool") {
+          if (id) {
+            Object.assign(tool(id), {
+              name: v.name,
+              cat: v.cat,
+              total: +v.total,
+            });
+          } else
+            D.tools.push({
+              id: "t" + Date.now(),
+              name: v.name,
+              cat: v.cat,
+              total: +v.total,
+              broken: 0,
+              cond: "Baik",
+            });
+          toast("Data alat disimpan");
+        }
+        if (k == "copy") {
+          const c = $("#csv");
+          c.select();
+          try {
+            navigator.clipboard.writeText(c.value);
+          } catch (x) {
+            document.execCommand("copy");
+          }
+          toast("CSV disalin ke papan klip");
+          return;
+        }
+        save();
+        render();
+      });
+      dlg.addEventListener(
+        "submit",
+        (e) => {
+          if (e.target.dataset.k == "copy") {
+            e.preventDefault();
+          }
+        },
+        true,
+      );
+      function tick() {
+        if (!SES) return;
+        const fresh = rd(KEY);
+        if (fresh) D = fresh;
+        system();
+        const s = JSON.stringify(D);
+        const ts = $("#ts");
+        if (ts) ts.textContent = new Date().toLocaleTimeString("id-ID");
+        if (s !== last && !dlg.open && document.activeElement?.id != "q") {
+          last = s;
+          render();
+        }
+      }
+      window.addEventListener("storage", tick);
+      setInterval(tick, 3000);
+      system();
+      save();
+      last = JSON.stringify(D);
+      render();
+    </script>
   </body>
 </html>
